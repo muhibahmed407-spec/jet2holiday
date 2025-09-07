@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jet2Holiday - Your Dream Vacation Awaits</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Homepage Specific Styles */
+        :root {
+            --primary: #0F2557;
+            --secondary: #28559A;
+            --accent: #FFB400;
+            --light: #F4F7FE;
+            --dark: #0A1931;
+            --text: #333333;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            background-color: var(--light);
+            line-height: 1.6;
+        }
+        
+        /* Navigation */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 12px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-scrolled {
+            padding: 8px 0;
+            background: var(--primary);
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 28px;
+            color: white !important;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 600;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background: url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?ixlib=rb-4.0.3') no-repeat center center;
+            background-size: cover;
+            padding: 180px 0 100px;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, rgba(15, 37, 87, 0.85), rgba(40, 85, 154, 0.85));
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-badge {
+            background: var(--accent);
+            color: var(--dark);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Search Section */
+        .search-section {
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .search-form {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .search-form:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        /* Destinations Section */
+        .destinations-section {
+            padding: 100px 0;
+            background: var(--light);
+        }
+        
+        .destination-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            margin-bottom: 30px;
+            background: white;
+            position: relative;
+        }
+        
+        .destination-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .destination-img {
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            width: 100%;
+        }
+        
+        .destination-card:hover .destination-img {
+            transform: scale(1.1);
+        }
+        
+        .destination-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+        
+        .price-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .destination-title {
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .destination-location {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .destination-features {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: var(--text);
+        }
+        
+        .feature i {
+            color: var(--accent);
+            margin-right: 5px;
+        }
+        
+        .view-details-btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+            text-align: center;
+            display: block;
+        }
+        
+        .view-details-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+        
+        /* Deals Section */
+        .deals-section {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .deal-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            margin-bottom: 30px;
+            background: white;
+            position: relative;
+        }
+        
+        .deal-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .deal-img {
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            width: 100%;
+        }
+        
+        .deal-card:hover .deal-img {
+            transform: scale(1.1);
+        }
+        
+        .offer-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+        
+        .countdown-timer {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 2;
+        }
+        
+        .timer-unit {
+            display: inline-block;
+            margin: 0 5px;
+            min-width: 50px;
+        }
+        
+        .timer-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        
+        .timer-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+        
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 100px 0;
+            background: var(--light);
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .testimonial-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-author {
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .testimonial-role {
+            color: var(--secondary);
+            font-size: 14px;
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+        
+        .stat-text {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        /* Newsletter Section */
+        .newsletter-section {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .newsletter-form {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-input {
+            padding: 15px 150px 15px 20px;
+            border-radius: 50px;
+            border: 2px solid #e1e5eb;
+            width: 100%;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .newsletter-input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 0.25rem rgba(15, 37, 87, 0.15);
+        }
+        
+        .newsletter-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: var(--accent);
+            color: var(--dark);
+            border: none;
+            border-radius: 50px;
+            padding: 10px 25px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .newsletter-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-title {
+            font-weight: 700;
+            margin-bottom: 25px;
+            font-size: 22px;
+            color: var(--accent);
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            text-align: center;
+            line-height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+            color: var(--dark);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 150px 0 80px;
+            }
+            
+            .section-title {
+                font-size: 1.75rem;
+            }
+            
+            .search-form {
+                padding: 20px;
+            }
+            
+            .destination-img, .deal-img {
+                height: 200px;
+            }
+            
+            .newsletter-input {
+                padding: 15px 20px;
+            }
+            
+            .newsletter-btn {
+                position: relative;
+                width: 100%;
+                margin-top: 15px;
+                border-radius: 50px;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-plane-departure me-2"></i>Jet2Holiday
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="destinations.html">Destinations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="deals.html">Deals</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+                <div class="ms-lg-3 mt-3 mt-lg-0">
+                    <button class="btn btn-light rounded-pill px-4" id="loginBtn">Login</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-star me-2"></i>Trusted by 50,000+ Travelers
+                </div>
+                <h1 class="display-4 fw-bold mb-4">Discover Your Next Adventure</h1>
+                <p class="lead mb-5">Explore the world with our exclusive travel packages and create memories that last a lifetime.</p>
+                <button class="btn btn-light btn-lg rounded-pill px-5 py-3 fw-bold" id="exploreBtn">Explore Destinations</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="search-form">
+                        <h3 class="text-center mb-4">Find Your Perfect Getaway</h3>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Destination</label>
+                                <select class="form-select" id="destinationSelect">
+                                    <option value="" selected>Any Destination</option>
+                                    <option value="bali">Bali, Indonesia</option>
+                                    <option value="santorini">Santorini, Greece</option>
+                                    <option value="paris">Paris, France</option>
+                                    <option value="maldives">Maldives</option>
+                                    <option value="tokyo">Tokyo, Japan</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Check In</label>
+                                <input type="date" class="form-control" id="checkInDate">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Duration</label>
+                                <select class="form-select" id="durationSelect">
+                                    <option value="">Any Duration</option>
+                                    <option value="3-5">3-5 Nights</option>
+                                    <option value="6-8">6-8 Nights</option>
+                                    <option value="9-12">9-12 Nights</option>
+                                    <option value="13+">13+ Nights</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="text-center mt-3">
+                            <button class="btn btn-primary btn-lg px-5" id="searchBtn">Search Holidays</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section class="destinations-section">
+        <div class="container">
+            <h2 class="section-title">Popular Destinations</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4 fade-in">
+                    <div class="destination-card">
+                        <div class="destination-badge">Popular</div>
+                        <div class="price-tag">$899</div>
+                        <img src="images/bali.jpg" alt="Bali" class="destination-img">
+                        <div class="card-body">
+                            <h4 class="destination-title">Bali Paradise</h4>
+                            <p class="destination-location"><i class="fas fa-map-marker-alt me-2"></i>Bali, Indonesia</p>
+                            <p>Experience the perfect blend of culture, beaches, and nightlife in the Island of Gods.</p>
+                            <div class="destination-features">
+                                <div class="feature">
+                                    <i class="fas fa-clock"></i> 7 Days
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-user"></i> 2 People
+                                </div>
+                            </div>
+                            <button class="view-details-btn">View Details</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4 fade-in">
+                    <div class="destination-card">
+                        <div class="destination-badge">Best Value</div>
+                        <div class="price-tag">$1299</div>
+                        <img src="images/santorini.jpg" alt="Santorini" class="destination-img">
+                        <div class="card-body">
+                            <h4 class="destination-title">Santorini Escape</h4>
+                            <p class="destination-location"><i class="fas fa-map-marker-alt me-2"></i>Santorini, Greece</p>
+                            <p>Stunning sunsets, white-washed buildings, and crystal blue waters await you.</p>
+                            <div class="destination-features">
+                                <div class="feature">
+                                    <i class="fas fa-clock"></i> 5 Days
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-user"></i> 2 People
+                                </div>
+                            </div>
+                            <button class="view-details-btn">View Details</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4 fade-in">
+                    <div class="destination-card">
+                        <div class="price-tag">$1499</div>
+                        <img src="images/kyoto.jpg" alt="Kyoto" class="destination-img">
+                        <div class="card-body">
+                            <h4 class="destination-title">Kyoto Cultural Journey</h4>
+                            <p class="destination-location"><i class="fas fa-map-marker-alt me-2"></i>Kyoto, Japan</p>
+                            <p>Ancient temples, traditional gardens, and breathtaking cherry blossoms.</p>
+                            <div class="destination-features">
+                                <div class="feature">
+                                    <i class="fas fa-clock"></i> 6 Days
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-user"></i> 2 People
+                                </div>
+                            </div>
+                            <button class="view-details-btn">View Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <button class="btn btn-outline-primary btn-lg">View All Destinations</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deals Section -->
+    <section class="deals-section">
+        <div class="container">
+            <h2 class="section-title">Special Offers</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4 fade-in">
+                    <div class="deal-card">
+                        <div class="offer-badge">30% OFF</div>
+                        <img src="images/paris.jpg" alt="Paris Deal" class="deal-img">
+                        <div class="countdown-timer">
+                            <div class="timer-unit">
+                                <div class="timer-value">02</div>
+                                <div class="timer-label">Days</div>
+                            </div>
+                            <div class="timer-unit">
+                                <div class="timer-value">12</div>
+                                <div class="timer-label">Hours</div>
+                            </div>
+                            <div class="timer-unit">
+                                <div class="timer-value">45</div>
+                                <div class="timer-label">Mins</div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="destination-title">Paris Romantic Getaway</h4>
+                            <p class="destination-location"><i class="fas fa-map-marker-alt me-2"></i>Paris, France</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="text-muted text-decoration-line-through">$1299</span>
+                                <span class="h4 text-primary mb-0">$899</span>
+                            </div>
+                            <button class="view-details-btn mt-3">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4 fade-in">
+                    <div class="deal-card">
+                        <div class="offer-badge">25% OFF</div>
+                        <img src="images/thailand.jpg" alt="Thailand Deal" class="deal-img">
+                        <div class="countdown-timer">
+                            <div class="timer-unit">
+                                <div class="timer-value">05</div>
+                                <div class="timer-label">Days</div>
+                            </div>
+                            <div class="timer-unit">
+                                <div class="timer-value">08</div>
+                                <div class="timer-label">Hours</div>
+                            </div>
+                            <div class="timer-unit">
+                                <div class="timer-value">30</div>
+                                <div class="timer-label">Mins</div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="destination-title">Thai Island Adventure</h4>
+                            <p class="destination-location"><i class="fas fa-map-marker-alt me-2"></i>Thailand</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="text-muted text-decoration-line-through">$1599</span>
+                                <span class="h4 text-primary mb-0">$1199</span>
+                            </div>
+                            <button class="view-details-btn mt-3">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4 fade-in">
+                    <div class="deal-card">
+                        <div class="offer-badge">20% OFF</div>
+                        <img src="images/carribean.jpg" alt="Caribbean Deal" class="deal-img">
+                        <div class="countdown-timer">
+                            <div class="timer-unit">
+                                <div class="timer-value">07</div>
+                                <div class="timer-label">Days</div>
+                            </div>
+                            <div class="timer-unit">
+                                <div class="timer-value">15</div>
+                                <div class="timer-label">Hours</div>
+                            </div>
+                            <div class="timer-unit">
+                                <div class="timer-value">20</div>
+                                <div class="timer-label">Mins</div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="destination-title">Caribbean Cruise</h4>
+                            <p class="destination-location"><i class="fas fa-map-marker-alt me-2"></i>Caribbean Islands</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="text-muted text-decoration-line-through">$1999</span>
+                                <span class="h4 text-primary mb-0">$1599</span>
+                            </div>
+                            <button class="view-details-btn mt-3">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title">What Our Travelers Say</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4 fade-in">
+                    <div class="testimonial-card text-center">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Traveler" class="testimonial-img">
+                        <h4>Sarah Johnson</h4>
+                        <p class="text-muted">Bali Vacation</p>
+                        <p class="testimonial-text">"The entire experience was seamless. The resort was beyond beautiful and the staff were incredibly helpful. Will definitely book with Jet2Holiday again!"</p>
+                        <div class="text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4 fade-in">
+                    <div class="testimonial-card text-center">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Traveler" class="testimonial-img">
+                        <h4>Michael Thompson</h4>
+                        <p class="text-muted">Greek Islands Tour</p>
+                        <p class="testimonial-text">"From booking to returning home, everything was perfectly organized. The guided tours were informative and the accommodations were excellent."</p>
+                        <div class="text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4 fade-in">
+                    <div class="testimonial-card text-center">
+                        <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Traveler" class="testimonial-img">
+                        <h4>Emily Rodriguez</h4>
+                        <p class="text-muted">Japanese Adventure</p>
+                        <p class="testimonial-text">"The cultural experiences were incredible. We got to see parts of Japan we never would have found on our own. Thank you for an unforgettable journey!"</p>
+                        <div class="text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-text">Destinations</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <div class="stat-number">50,000+</div>
+                        <div class="stat-text">Happy Travelers</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <div class="stat-number">12</div>
+                        <div class="stat-text">Years Experience</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <div class="stat-number">15</div>
+                        <div class="stat-text">Awards Won</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container text-center">
+            <h2 class="section-title">Get Travel Inspiration</h2>
+            <p class="lead mb-5">Subscribe to our newsletter for exclusive deals and travel tips</p>
+            
+            <form class="newsletter-form" id="newsletterForm">
+                <input type="email" class="newsletter-input" placeholder="Your email address" required>
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5 class="footer-title">Jet2Holiday</h5>
+                    <p>Making your travel dreams come true with carefully curated vacation packages and exceptional service.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5 class="footer-title">Quick Links</h5>
+                    <div class="footer-links">
+                        <a href="#">All Destinations</a>
+                        <a href="#">Special Offers</a>
+                        <a href="#">Honeymoon Packages</a>
+                        <a href="#">Family Vacations</a>
+                        <a href="#">Group Tours</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <h5 class="footer-title">Contact Information</h5>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-map-marker-alt me-2"></i> 123 Travel Street, London, UK</p>
+                        <p><i class="fas fa-phone-alt me-2"></i> +44 123 456 7890</p>
+                        <p><i class="fas fa-envelope me-2"></i> info@jet2holiday.com</p>
+                        <p><i class="fas fa-clock me-2"></i> Mon-Fri: 9am-6pm, Sat: 10am-4pm</p>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Jet2Holiday. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+        });
+
+        // Back to top button
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Set minimum date for check-in (today)
+        const today = new Date();
+        const formattedDate = today.toISOString().split('T')[0];
+        document.getElementById('checkInDate').min = formattedDate;
+
+        // Search form functionality
+        document.getElementById('searchBtn').addEventListener('click', function() {
+            const destination = document.getElementById('destinationSelect').value;
+            const checkIn = document.getElementById('checkInDate').value;
+            const duration = document.getElementById('durationSelect').value;
+            
+            if (!destination && !checkIn && !duration) {
+                alert('Please select at least one search criteria');
+                return;
+            }
+            
+            alert('Searching for holidays... This would connect to a real search API in production.');
+        });
+
+        // Newsletter form
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            alert(`Thank you for subscribing with ${email}! You'll receive our travel updates soon.`);
+            this.reset();
+        });
+
+        // Explore button
+        document.getElementById('exploreBtn').addEventListener('click', function() {
+            document.querySelector('.destinations-section').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Login button
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            alert('Login functionality would be implemented here.');
+        });
+
+        // View details buttons
+        const viewDetailsButtons = document.querySelectorAll('.view-details-btn');
+        viewDetailsButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const cardTitle = this.closest('.card-body').querySelector('.destination-title').textContent;
+                alert(`Details for ${cardTitle} would be shown here.`);
+            });
+        });
+
+        // Fade-in animation for elements
+        function checkFade() {
+            const elements = document.querySelectorAll('.fade-in');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = 1;
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        // Initialize elements for fade-in
+        document.querySelectorAll('.fade-in').forEach(element => {
+            element.style.opacity = 0;
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        });
+
+        window.addEventListener('scroll', checkFade);
+        window.addEventListener('load', checkFade);
+
+        // Countdown timer functionality
+        function updateCountdowns() {
+            const countdowns = document.querySelectorAll('.countdown-timer');
+            
+            countdowns.forEach(countdown => {
+                const days = countdown.querySelector('.timer-unit:nth-child(1) .timer-value');
+                const hours = countdown.querySelector('.timer-unit:nth-child(2) .timer-value');
+                const mins = countdown.querySelector('.timer-unit:nth-child(3) .timer-value');
+                
+                // In a real application, we would calculate the time difference to a specific date
+                // For demo purposes, we'll just decrement the values slowly
+                let daysValue = parseInt(days.textContent);
+                let hoursValue = parseInt(hours.textContent);
+                let minsValue = parseInt(mins.textContent);
+                
+                minsValue--;
+                
+                if (minsValue < 0) {
+                    minsValue = 59;
+                    hoursValue--;
+                    
+                    if (hoursValue < 0) {
+                        hoursValue = 23;
+                        daysValue--;
+                        
+                        if (daysValue < 0) {
+                            daysValue = 0;
+                            hoursValue = 0;
+                            minsValue = 0;
+                        }
+                    }
+                }
+                
+                days.textContent = daysValue.toString().padStart(2, '0');
+                hours.textContent = hoursValue.toString().padStart(2, '0');
+                mins.textContent = minsValue.toString().padStart(2, '0');
+            });
+        }
+
+        // Update countdowns every minute
+        setInterval(updateCountdowns, 60000);
+    </script>
+</body>
+</html>

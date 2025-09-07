@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Jet2Holiday</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* About Us Page Specific Styles */
+        :root {
+            --primary: #0F2557;
+            --secondary: #28559A;
+            --accent: #FFB400;
+            --light: #F4F7FE;
+            --dark: #0A1931;
+            --text: #333333;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            background-color: var(--light);
+            line-height: 1.6;
+        }
+        
+        /* Navigation */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 12px 0;
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 28px;
+            color: white !important;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 600;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+        
+        /* About Hero Section */
+        .about-hero {
+            background: linear-gradient(rgba(15, 37, 87, 0.8), rgba(40, 85, 154, 0.8)), url('https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 150px 0 100px;
+            color: white;
+            text-align: center;
+        }
+        
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        /* Story Section */
+        .story-section {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .story-img {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .story-img:hover {
+            transform: scale(1.02);
+        }
+        
+        /* Mission Section */
+        .mission-section {
+            padding: 100px 0;
+            background: var(--light);
+        }
+        
+        .mission-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+            text-align: center;
+        }
+        
+        .mission-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mission-icon {
+            font-size: 50px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        /* Team Section */
+        .team-section {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .team-member {
+            text-align: center;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .team-member.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .team-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary);
+            margin: 0 auto 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .team-img:hover {
+            transform: scale(1.05);
+            border-color: var(--accent);
+        }
+        
+        .team-name {
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .team-role {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .team-social {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .team-social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--light);
+            color: var(--primary);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .team-social a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        /* Values Section */
+        .values-section {
+            padding: 100px 0;
+            background: var(--light);
+        }
+        
+        .value-item {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        
+        .value-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .value-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .value-icon {
+            font-size: 50px;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 30px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .stat-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+        
+        .stat-text {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        /* Timeline Section */
+        .timeline-section {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+        
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: white;
+            border: 4px solid var(--accent);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+            text-align: right;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .left::after {
+            right: -13px;
+        }
+        
+        .right::after {
+            left: -13px;
+        }
+        
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: var(--light);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .timeline-year {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 100px 0;
+            background: var(--light);
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        
+        .testimonial-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .testimonial-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-author {
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .testimonial-role {
+            color: var(--secondary);
+            font-size: 14px;
+        }
+        
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-title {
+            font-weight: 700;
+            margin-bottom: 25px;
+            font-size: 22px;
+            color: var(--accent);
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            text-align: center;
+            line-height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+            color: var(--dark);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .about-hero {
+                padding: 100px 0 60px;
+            }
+            
+            .section-title {
+                font-size: 1.75rem;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::after {
+                left: 18px;
+            }
+            
+            .left, .right {
+                left: 0;
+                text-align: left;
+            }
+            
+            .stat-number {
+                font-size: 36px;
+            }
+            
+            .team-img {
+                width: 150px;
+                height: 150px;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-plane-departure me-2"></i>Jet2Holiday
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="destinations.html">Destinations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="deals.html">Deals</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="about.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Hero Section -->
+    <section class="about-hero">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-4">About Jet2Holiday</h1>
+            <p class="lead">Making dream vacations come true for over a decade</p>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="story-section">
+        <div class="container">
+            <h2 class="section-title">Our Story</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <img src="https://images.unsplash.com/photo-1531538606174-0f90ff5dce83?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Team" class="img-fluid story-img">
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="mb-4">From Small Beginnings to Global Reach</h3>
+                    <p>Founded in 2010, Jet2Holiday has been making dream vacations come true for over a decade. What started as a small travel agency with big dreams has grown into a trusted name in the travel industry.</p>
+                    <p>We believe that everyone deserves to experience the joy of travel. Our mission is to make exploring the world accessible, enjoyable, and unforgettable for all our customers.</p>
+                    <p>With a team of experienced travel enthusiasts, we carefully curate each package to ensure the highest quality experiences at the best value.</p>
+                    <button class="btn btn-primary mt-3" id="teamModalBtn">Meet Our Team</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission-section">
+        <div class="container">
+            <h2 class="section-title">Our Mission & Values</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="mission-card">
+                        <div class="mission-icon">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                        <h3>Global Exploration</h3>
+                        <p>We're committed to making world travel accessible to everyone, offering carefully curated experiences across the globe.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="mission-card">
+                        <div class="mission-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>Customer Satisfaction</h3>
+                        <p>Your happiness is our priority. We go above and beyond to ensure every aspect of your journey is exceptional.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="mission-card">
+                        <div class="mission-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Trust & Reliability</h3>
+                        <p>With over a decade of experience, we've built a reputation for trustworthy service and reliable travel arrangements.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="50">0</div>
+                        <div class="stat-text">Destinations</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="50000">0</div>
+                        <div class="stat-text">Happy Travelers</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="12">0</div>
+                        <div class="stat-text">Years Experience</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="15">0</div>
+                        <div class="stat-text">Awards Won</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <h2 class="section-title">Meet Our Team</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Team Member" class="team-img">
+                        <h4 class="team-name">Michael Johnson</h4>
+                        <p class="team-role">CEO & Founder</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Team Member" class="team-img">
+                        <h4 class="team-name">Sarah Williams</h4>
+                        <p class="team-role">Travel Director</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Team Member" class="team-img">
+                        <h4 class="team-name">David Chen</h4>
+                        <p class="team-role">Operations Manager</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section">
+        <div class="container">
+            <h2 class="section-title">Our Values</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="value-item">
+                        <div class="value-icon">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+                        <h3>Customer First</h3>
+                        <p>We prioritize our customers' needs and satisfaction above all else, ensuring memorable travel experiences.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="value-item">
+                        <div class="value-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Innovation</h3>
+                        <p>We continuously seek new ways to improve our services and create unique travel experiences.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="value-item">
+                        <div class="value-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <h3>Integrity</h3>
+                        <p>We conduct our business with honesty, transparency, and respect for all stakeholders.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+        <div class="container">
+            <h2 class="section-title">Our Journey</h2>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2010</div>
+                        <h4>Company Founded</h4>
+                        <p>Jet2Holiday was established with a vision to make travel accessible to everyone.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2013</div>
+                        <h4>First International Office</h4>
+                        <p>Expanded operations with our first international office in Spain.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2016</div>
+                        <h4>50,000 Customers Milestone</h4>
+                        <p>Celebrated serving our 50,000th customer with special promotions.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2020</div>
+                        <h4>Digital Transformation</h4>
+                        <p>Launched our new website and mobile app for seamless booking experience.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2023</div>
+                        <h4>Sustainability Initiative</h4>
+                        <p>Committed to carbon-neutral operations and sustainable travel options.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="testimonial-card">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Customer" class="testimonial-img">
+                        <p class="testimonial-text">"Jet2Holiday made our honeymoon absolutely perfect. Every detail was taken care of, and we couldn't have asked for a better experience."</p>
+                        <div class="testimonial-author">Sarah Johnson</div>
+                        <div class="testimonial-role">Honeymoon Package</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="testimonial-card">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Customer" class="testimonial-img">
+                        <p class="testimonial-text">"I've traveled with Jet2Holiday three times now, and each trip has been exceptional. Their attention to detail is remarkable."</p>
+                        <div class="testimonial-author">Michael Thompson</div>
+                        <div class="testimonial-role">Family Vacation</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5 class="footer-title">Jet2Holiday</h5>
+                    <p>Making your travel dreams come true with carefully curated vacation packages and exceptional service.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5 class="footer-title">Contact Info</h5>
+                    <p><i class="fas fa-map-marker-alt me-2"></i> 123 Travel Street, Paradise City, 12345</p>
+                    <p><i class="fas fa-phone me-2"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope me-2"></i> info@jet2holiday.com</p>
+                </div>
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <h5 class="footer-title">Newsletter</h5>
+                    <p>Subscribe to our newsletter for the latest travel updates and offers.</p>
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" placeholder="Your email">
+                        <button class="btn btn-primary">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Jet2Holiday. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Team Modal -->
+    <div class="modal fade" id="teamModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Our Team</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4 text-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Team Member" class="team-img mb-3">
+                            <h5>Michael Johnson</h5>
+                            <p class="text-muted">CEO & Founder</p>
+                        </div>
+                        <div class="col-md-4 text-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Team Member" class="team-img mb-3">
+                            <h5>Sarah Williams</h5>
+                            <p class="text-muted">Travel Director</p>
+                        </div>
+                        <div class="col-md-4 text-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Team Member" class="team-img mb-3">
+                            <h5>David Chen</h5>
+                            <p class="text-muted">Operations Manager</p>
+                        </div>
+                        <div class="col-md-4 text-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Team Member" class="team-img mb-3">
+                            <h5>Emily Rodriguez</h5>
+                            <p class="text-muted">Customer Experience</p>
+                        </div>
+                        <div class="col-md-4 text-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Team Member" class="team-img mb-3">
+                            <h5>James Wilson</h5>
+                            <p class="text-muted">Travel Consultant</p>
+                        </div>
+                        <div class="col-md-4 text-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Team Member" class="team-img mb-3">
+                            <h5>Olivia Brown</h5>
+                            <p class="text-muted">Marketing Director</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // DOM elements
+        const backToTopBtn = document.querySelector('.back-to-top');
+        const teamModalBtn = document.getElementById('teamModalBtn');
+        const teamModal = new bootstrap.Modal(document.getElementById('teamModal'));
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+            animateStats();
+            checkScroll();
+        });
+
+        // Set up event listeners
+        function setupEventListeners() {
+            // Back to top button
+            backToTopBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            
+            // Team modal button
+            teamModalBtn.addEventListener('click', function() {
+                teamModal.show();
+            });
+            
+            // Scroll event
+            window.addEventListener('scroll', function() {
+                checkScroll();
+                animateOnScroll();
+            });
+        }
+
+        // Check scroll position for back to top button
+        function checkScroll() {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        }
+
+        // Animate stats counter
+        function animateStats() {
+            const statItems = document.querySelectorAll('.stat-item');
+            statItems.forEach(item => {
+                item.classList.add('visible');
+            });
+            
+            const counters = document.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-count'));
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.round(current);
+                        setTimeout(updateCounter, 16);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+                
+                updateCounter();
+            });
+        }
+
+        // Animate elements on scroll
+        function animateOnScroll() {
+            const teamMembers = document.querySelectorAll('.team-member');
+            const valueItems = document.querySelectorAll('.value-item');
+            const testimonialCards = document.querySelectorAll('.testimonial-card');
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            
+            animateElements(teamMembers);
+            animateElements(valueItems);
+            animateElements(testimonialCards);
+            animateElements(timelineItems);
+        }
+
+        // Animate elements when they come into view
+        function animateElements(elements) {
+            const windowHeight = window.innerHeight;
+            
+            elements.forEach(element => {
+                const position = element.getBoundingClientRect().top;
+                
+                if (position < windowHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Initialize animations on load
+        setTimeout(() => {
+            animateOnScroll();
+        }, 500);
+    </script>
+</body>
+</html>

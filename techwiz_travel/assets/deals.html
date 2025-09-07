@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Deals - Jet2Holiday</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Deals Page Specific Styles */
+        :root {
+            --primary: #0F2557;
+            --secondary: #28559A;
+            --accent: #FFB400;
+            --light: #F4F7FE;
+            --dark: #0A1931;
+            --text: #333333;
+            --success: #28a745;
+            --danger: #dc3545;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            background-color: var(--light);
+            line-height: 1.6;
+        }
+        
+        /* Navigation */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 12px 0;
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 28px;
+            color: white !important;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 600;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+        
+        /* Deals Hero Section */
+        .deals-hero {
+            background: linear-gradient(rgba(15, 37, 87, 0.8), rgba(40, 85, 154, 0.8)), url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 150px 0 100px;
+            color: white;
+            text-align: center;
+        }
+        
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        /* Deals Grid */
+        .deals-section {
+            padding: 100px 0;
+            background: var(--light);
+        }
+        
+        .deal-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            margin-bottom: 30px;
+            background: white;
+            position: relative;
+        }
+        
+        .deal-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .deal-img {
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            width: 100%;
+        }
+        
+        .deal-card:hover .deal-img {
+            transform: scale(1.1);
+        }
+        
+        .deal-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+        
+        .price-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+        
+        .original-price {
+            text-decoration: line-through;
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-right: 10px;
+        }
+        
+        .discount-badge {
+            background: var(--danger);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .deal-title {
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .deal-location {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .deal-features {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: var(--text);
+        }
+        
+        .feature i {
+            color: var(--accent);
+            margin-right: 5px;
+        }
+        
+        .view-details-btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+            text-align: center;
+            display: block;
+        }
+        
+        .view-details-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+        
+        /* Filter Section */
+        .filter-section {
+            padding: 50px 0;
+            background: white;
+        }
+        
+        .filter-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .filter-btn {
+            background: var(--light);
+            color: var(--dark);
+            border: 2px solid var(--secondary);
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border-color: transparent;
+        }
+        
+        /* Newsletter Section */
+        .newsletter-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+        
+        .newsletter-form {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-input {
+            padding: 15px 150px 15px 20px;
+            border-radius: 50px;
+            border: none;
+            width: 100%;
+            font-size: 16px;
+        }
+        
+        .newsletter-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: var(--accent);
+            color: var(--dark);
+            border: none;
+            border-radius: 50px;
+            padding: 10px 25px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .newsletter-btn:hover {
+            background: white;
+        }
+        
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-title {
+            font-weight: 700;
+            margin-bottom: 25px;
+            font-size: 22px;
+            color: var(--accent);
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            text-align: center;
+            line-height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+            color: var(--dark);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--accent);
+            animation: spin 1s ease-in-out infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateX(150%);
+            transition: transform 0.5s ease;
+            z-index: 1050;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .deals-hero {
+                padding: 100px 0 60px;
+            }
+            
+            .section-title {
+                font-size: 1.75rem;
+            }
+            
+            .deal-img {
+                height: 200px;
+            }
+            
+            .newsletter-input {
+                padding: 15px 20px;
+            }
+            
+            .newsletter-btn {
+                position: relative;
+                width: 100%;
+                margin-top: 15px;
+                border-radius: 50px;
+            }
+            
+            .filter-options {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-btn {
+                width: 200px;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        /* Pulse animation for special offers */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Deal of the day special styling */
+        .deal-of-day {
+            border: 3px solid var(--accent);
+            position: relative;
+        }
+        
+        .deal-of-day::before {
+            content: 'DEAL OF THE DAY';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: var(--dark);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: 700;
+            z-index: 3;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-plane-departure me-2"></i>Jet2Holiday
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="destinations.html">Destinations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="deals.html">Special Deals</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Deals Hero Section -->
+    <section class="deals-hero">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-4">Special Offers</h1>
+            <p class="lead">Limited-time deals to make your dream vacation more affordable</p>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="container">
+            <h2 class="section-title">Find Your Perfect Deal</h2>
+            <div class="filter-options">
+                <button class="filter-btn active" data-filter="all">All Deals</button>
+                <button class="filter-btn" data-filter="last-minute">Last Minute</button>
+                <button class="filter-btn" data-filter="family">Family Deals</button>
+                <button class="filter-btn" data-filter="luxury">Luxury Offers</button>
+                <button class="filter-btn" data-filter="beach">Beach Vacations</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deals Grid -->
+    <section class="deals-section">
+        <div class="container">
+            <div class="row" id="dealsGrid">
+                <!-- Deals will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container text-center">
+            <h2 class="mb-4">Never Miss a Deal</h2>
+            <p class="mb-5">Subscribe to our newsletter and be the first to know about exclusive offers</p>
+            
+            <form class="newsletter-form" id="newsletterForm">
+                <input type="email" class="newsletter-input" placeholder="Your email address" required>
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5 class="footer-title">Jet2Holiday</h5>
+                    <p>Making your travel dreams come true with carefully curated vacation packages and exceptional service.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5 class="footer-title">Quick Links</h5>
+                    <div class="footer-links">
+                        <a href="#">All Destinations</a>
+                        <a href="#">Special Offers</a>
+                        <a href="#">Honeymoon Packages</a>
+                        <a href="#">Family Vacations</a>
+                        <a href="#">Group Tours</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <h5 class="footer-title">Contact Info</h5>
+                    <p><i class="fas fa-map-marker-alt me-2"></i> 123 Travel Street, Paradise City, 12345</p>
+                    <p><i class="fas fa-phone me-2"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope me-2"></i> info@jet2holiday.com</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Jet2Holiday. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <span id="notificationText"></span>
+    </div>
+
+    <!-- Deal Detail Modal -->
+    <div class="modal fade" id="dealModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDealTitle">Deal Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img id="modalDealImage" src="" alt="Deal" class="img-fluid rounded">
+                        </div>
+                        <div class="col-md-6">
+                            <h4 id="modalDealName"></h4>
+                            <p id="modalDealLocation" class="text-muted"></p>
+                            <div class="my-3">
+                                <span class="original-price" id="modalOriginalPrice"></span>
+                                <span class="h4 text-primary" id="modalDealPrice"></span>
+                                <span class="discount-badge ms-2" id="modalDiscount"></span>
+                            </div>
+                            <p id="modalDealDescription"></p>
+                            
+                            <div class="deal-features mt-4">
+                                <div class="feature">
+                                    <i class="fas fa-clock"></i> <span id="modalDuration"></span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-user"></i> <span id="modalPeople"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex justify-content-between mt-4">
+                                <button class="btn btn-outline-primary" id="addToWishlist">Add to Wishlist</button>
+                                <button class="btn btn-primary" id="bookNowBtn">Book Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Sample deals data
+        const dealsData = [
+            {
+                id: 1,
+                name: "Bali Paradise Package",
+                location: "Bali, Indonesia",
+                originalPrice: "$1299",
+                price: "$899",
+                discount: "30% OFF",
+                image: "images/bali.jpg",
+                description: "Experience the perfect blend of culture, beaches, and nightlife in the Island of Gods. This limited-time offer includes flights, accommodation, and daily breakfast.",
+                duration: "7 Days",
+                people: "2 People",
+                type: "beach",
+                badge: "Popular",
+                isDealOfDay: true
+            },
+            {
+                id: 2,
+                name: "Santorini Escape",
+                location: "Santorini, Greece",
+                originalPrice: "$1599",
+                price: "$1299",
+                discount: "20% OFF",
+                image: "images/santorini.jpg",
+                description: "Stunning sunsets, white-washed buildings, and crystal blue waters await you in this iconic Greek island paradise. Includes luxury accommodation and guided tours.",
+                duration: "5 Days",
+                people: "2 People",
+                type: "luxury",
+                badge: "Last Minute",
+                isDealOfDay: false
+            },
+            {
+                id: 3,
+                name: "Family Fun in Orlando",
+                location: "Orlando, Florida",
+                originalPrice: "$2499",
+                price: "$1999",
+                discount: "20% OFF",
+                image: "https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                description: "Perfect for families! Enjoy theme parks, water parks, and family-friendly attractions. Package includes accommodation, park tickets, and breakfast.",
+                duration: "7 Days",
+                people: "4 People",
+                type: "family",
+                badge: "Family Deal",
+                isDealOfDay: false
+            },
+            {
+                id: 4,
+                name: "Luxury Maldives Retreat",
+                location: "Maldives",
+                originalPrice: "$2999",
+                price: "$2299",
+                discount: "25% OFF",
+                image: "https://images.unsplash.com/photo-1514214246283-d427a95c5d2f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                description: "Pristine beaches, overwater bungalows, and incredible marine life. This luxury package includes spa treatments, gourmet dining, and private transfers.",
+                duration: "6 Days",
+                people: "2 People",
+                type: "luxury",
+                badge: "Luxury",
+                isDealOfDay: false
+            },
+            {
+                id: 5,
+                name: "Thai Island Hopping",
+                location: "Thailand",
+                originalPrice: "$1799",
+                price: "$1399",
+                discount: "22% OFF",
+                image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                description: "Explore the stunning islands of Thailand with crystal clear waters, vibrant marine life, and lush jungles. Includes island tours and snorkeling.",
+                duration: "8 Days",
+                people: "2 People",
+                type: "beach",
+                badge: "Adventure",
+                isDealOfDay: false
+            },
+            {
+                id: 6,
+                name: "European Christmas Markets",
+                location: "Germany, Austria & Czech Republic",
+                originalPrice: "$1899",
+                price: "$1499",
+                discount: "21% OFF",
+                image: "https://images.unsplash.com/photo-1571771016-3ed19bb2f7a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                description: "Experience the magic of European Christmas markets. Visit multiple countries and enjoy festive foods, crafts, and holiday cheer.",
+                duration: "7 Days",
+                people: "2 People",
+                type: "last-minute",
+                badge: "Seasonal",
+                isDealOfDay: false
+            }
+        ];
+
+        // DOM elements
+        const dealsGrid = document.getElementById('dealsGrid');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const newsletterForm = document.getElementById('newsletterForm');
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notificationText');
+        const dealModal = new bootstrap.Modal(document.getElementById('dealModal'));
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDeals(dealsData);
+            setupEventListeners();
+        });
+
+        // Load deals into the grid
+        function loadDeals(deals) {
+            dealsGrid.innerHTML = '';
+            
+            if (deals.length === 0) {
+                dealsGrid.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <i class="fas fa-search fa-3x mb-3 text-muted"></i>
+                        <h4>No deals found</h4>
+                        <p>Try adjusting your filters to see more results.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            deals.forEach(deal => {
+                const dealCard = createDealCard(deal);
+                dealsGrid.appendChild(dealCard);
+            });
+        }
+
+        // Create a deal card element
+        function createDealCard(deal) {
+            const col = document.createElement('div');
+            col.className = `col-md-6 col-lg-4 fade-in ${deal.isDealOfDay ? 'deal-of-day' : ''}`;
+            
+            col.innerHTML = `
+                <div class="deal-card">
+                    ${deal.badge ? `<div class="deal-badge">${deal.badge}</div>` : ''}
+                    <div class="price-tag">${deal.price}</div>
+                    <img src="${deal.image}" alt="${deal.name}" class="deal-img">
+                    
+                    <div class="card-body">
+                        <h4 class="deal-title">${deal.name}</h4>
+                        <p class="deal-location"><i class="fas fa-map-marker-alt me-2"></i>${deal.location}</p>
+                        
+                        <div class="mb-3">
+                            <span class="original-price">${deal.originalPrice}</span>
+                            <span class="h5 text-primary">${deal.price}</span>
+                            <span class="discount-badge">${deal.discount}</span>
+                        </div>
+                        
+                        <p>${deal.description.substring(0, 100)}...</p>
+                        
+                        <div class="deal-features">
+                            <div class="feature">
+                                <i class="fas fa-clock"></i> ${deal.duration}
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-user"></i> ${deal.people}
+                            </div>
+                        </div>
+                        
+                        <button class="view-details-btn mt-3" data-id="${deal.id}">View Details</button>
+                    </div>
+                </div>
+            `;
+            
+            return col;
+        }
+
+        // Set up event listeners
+        function setupEventListeners() {
+            // Filter buttons
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Apply filter
+                    const filter = this.getAttribute('data-filter');
+                    applyFilter(filter);
+                });
+            });
+            
+            // View details buttons
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('view-details-btn')) {
+                    const dealId = parseInt(e.target.getAttribute('data-id'));
+                    showDealDetails(dealId);
+                }
+            });
+            
+            // Newsletter form
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = this.querySelector('input[type="email"]').value;
+                subscribeNewsletter(email);
+            });
+            
+            // Add to wishlist button in modal
+            document.getElementById('addToWishlist').addEventListener('click', function() {
+                const dealId = parseInt(this.getAttribute('data-id'));
+                addToWishlist(dealId);
+            });
+            
+            // Book now button in modal
+            document.getElementById('bookNowBtn').addEventListener('click', function() {
+                const dealId = parseInt(this.getAttribute('data-id'));
+                bookDeal(dealId);
+            });
+        }
+
+        // Apply filter to deals
+        function applyFilter(filter) {
+            showNotification("Applying filter...");
+            
+            // Simulate loading delay
+            setTimeout(() => {
+                let filteredDeals;
+                
+                if (filter === 'all') {
+                    filteredDeals = dealsData;
+                } else {
+                    filteredDeals = dealsData.filter(deal => {
+                        return deal.type === filter || deal.badge.toLowerCase().includes(filter);
+                    });
+                }
+                
+                loadDeals(filteredDeals);
+                showNotification(`Found ${filteredDeals.length} deals matching your criteria`);
+            }, 500);
+        }
+
+        // Show deal details in modal
+        function showDealDetails(id) {
+            const deal = dealsData.find(d => d.id === id);
+            if (!deal) return;
+            
+            // Populate modal
+            document.getElementById('modalDealTitle').textContent = deal.name;
+            document.getElementById('modalDealImage').src = deal.image;
+            document.getElementById('modalDealName').textContent = deal.name;
+            document.getElementById('modalDealLocation').textContent = deal.location;
+            document.getElementById('modalOriginalPrice').textContent = deal.originalPrice;
+            document.getElementById('modalDealPrice').textContent = deal.price;
+            document.getElementById('modalDiscount').textContent = deal.discount;
+            document.getElementById('modalDealDescription').textContent = deal.description;
+            document.getElementById('modalDuration').textContent = deal.duration;
+            document.getElementById('modalPeople').textContent = deal.people;
+            
+            // Set data attributes for buttons
+            document.getElementById('addToWishlist').setAttribute('data-id', deal.id);
+            document.getElementById('bookNowBtn').setAttribute('data-id', deal.id);
+            
+            // Show modal
+            dealModal.show();
+        }
+
+        // Add deal to wishlist
+        function addToWishlist(id) {
+            const deal = dealsData.find(d => d.id === id);
+            if (!deal) return;
+            
+            // In a real application, this would call an API
+            showNotification(`Added ${deal.name} to your wishlist!`, 2000);
+            
+            // Close modal after a short delay
+            setTimeout(() => {
+                dealModal.hide();
+            }, 1500);
+        }
+
+        // Book a deal
+        function bookDeal(id) {
+            const deal = dealsData.find(d => d.id === id);
+            if (!deal) return;
+            
+            // In a real application, this would redirect to a booking page
+            showNotification(`Redirecting to booking page for ${deal.name}...`, 2000);
+            
+            // Simulate redirect
+            setTimeout(() => {
+                dealModal.hide();
+                // window.location.href = `/book/${id}`; // Actual redirect would go here
+            }, 1500);
+        }
+
+        // Subscribe to newsletter
+        function subscribeNewsletter(email) {
+            // Show loading
+            showNotification("Subscribing...");
+            
+            // Simulate API call
+            setTimeout(() => {
+                showNotification("Thank you for subscribing to our newsletter! You'll receive our best deals.");
+                newsletterForm.reset();
+            }, 1000);
+        }
+
+        // Show notification
+        function showNotification(message, duration = 3000) {
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, duration);
+        }
+    </script>
+</body>
+</html>
